@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" version="1.1" width="512" height="512" x="0" y="0" viewBox="0 0 494.148 494.148" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><script id="metastreaminitscript">(function() {
+    document.getElementById('metastreaminitscript').remove()
+
+    const INIT_TIMEOUT = 5e3
+    const isFirefox = navigator.userAgent.toLowerCase().includes('firefox')
+
+    //=========================================================================
+    // document.createElement proxy
+    //=========================================================================
+
+    window.__metastreamMediaElements = new Set()
+
+    // Proxy document.createElement to trap media elements created in-memory
+    const origCreateElement = document.createElement
+    const proxyCreateElement = function() {
+      const element = origCreateElement.apply(document, arguments)
+      if (window.__metastreamMediaElements &amp;&amp; element instanceof HTMLMediaElement) {
+        window.__metastreamMediaElements.add(element)
+      }
+      return element
+    }
+    proxyCreateElement.toString = origCreateElement.toString.bind(origCreateElement)
+    document.createElement = proxyCreateElement
+
+    setTimeout(() =&gt; {
+      if (window.__metastreamMediaElements) {
+        window.__metastreamMediaElements.clear()
+        window.__metastreamMediaElements = undefined
+      }
+    }, INIT_TIMEOUT)
+
+    //=========================================================================
+    // navigator.mediaSession proxy (Firefox)
+    //=========================================================================
+
+    if (isFirefox) {
+      // stub out MediaSession API until Firefox supports this natively
+      if (!navigator.mediaSession) {
+        const noop = () =&gt; {}
+        const mediaSessionStub = {
+          __installedByMetastreamRemote__: true,
+          setActionHandler: noop
+        }
+        Object.defineProperty(window.navigator, 'mediaSession', {
+          value: mediaSessionStub,
+          enumerable: false,
+          writable: true
+        })
+
+        function MediaMetadata(metadata) {
+          Object.assign(this, metadata)
+        }
+        window.MediaMetadata = MediaMetadata
+      }
+
+      const { mediaSession } = navigator
+
+      // Capture action handlers for player.js proxy
+      mediaSession._handlers = {}
+
+      const _setActionHandler = mediaSession.setActionHandler
+      mediaSession.setActionHandler = function(name, handler) {
+        mediaSession._handlers[name] = handler
+        _setActionHandler.apply(mediaSession, arguments)
+      }
+    }
+
+    //=========================================================================
+    // document.domain fix (Firefox)
+    //=========================================================================
+
+    if (isFirefox) {
+      const domains = ['twitch.tv', 'crunchyroll.com']
+
+      // Fix for setting document.domain in sandboxed iframe
+      try {
+        const { domain } = document
+        if (domain &amp;&amp; domains.some(d =&gt; domain.includes(d))) {
+          Object.defineProperty(document, 'domain', {
+            value: domain,
+            writable: true
+          })
+        }
+      } catch (e) {}
+    }
+
+    //=========================================================================
+    // Inline script embed prevention fix
+    //=========================================================================
+
+    const observeScripts = () =&gt; {
+      const scriptSnippets = [
+        { code: 'window.top !== window.self', replacement: 'false' },
+        { code: 'self == top', replacement: 'true' },
+        { code: 'top.location != window.location', replacement: 'false' }
+      ]
+
+      const getAddedScripts = mutationList =&gt;
+        mutationList.reduce((scripts, mutation) =&gt; {
+          if (mutation.type !== 'childList') return scripts
+          const inlineScripts = Array.from(mutation.addedNodes).filter(
+            node =&gt; node instanceof HTMLScriptElement &amp;&amp; node.textContent.length &gt; 0
+          )
+          return inlineScripts.length &gt; 0 ? [...scripts, ...inlineScripts] : scripts
+        }, [])
+
+      // Modifies inline scripts to allow embedding content in iframe
+      const inlineScriptModifier = mutationsList =&gt; {
+        const scripts = getAddedScripts(mutationsList)
+        for (let script of scripts) {
+          for (let snippet of scriptSnippets) {
+            if (script.textContent.includes(snippet.code)) {
+              script.textContent = script.textContent.split(snippet.code).join(snippet.replacement)
+            }
+          }
+        }
+      }
+
+      const observer = new MutationObserver(inlineScriptModifier)
+      observer.observe(document.documentElement, { childList: true, subtree: true })
+
+      // Stop watching for changes after we finish loading
+      window.addEventListener('load', () =&gt; observer.disconnect())
+    }
+
+    observeScripts()
+  }());</script>
+<g xmlns="http://www.w3.org/2000/svg">
+	<g>
+		<path d="M405.284,201.188L130.804,13.28C118.128,4.596,105.356,0,94.74,0C74.216,0,61.52,16.472,61.52,44.044v406.124    c0,27.54,12.68,43.98,33.156,43.98c10.632,0,23.2-4.6,35.904-13.308l274.608-187.904c17.66-12.104,27.44-28.392,27.44-45.884    C432.632,229.572,422.964,213.288,405.284,201.188z" fill="#f2f2f2" data-original="#000000" style="" class=""/>
+	</g>
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+</g></svg>

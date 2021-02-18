@@ -1,20 +1,27 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home/Home.vue'
-import Text from '../views/Text/Text.vue'
+import Home from '@/views/Home/Home.vue'
+import Text from '@/views/Text/Text.vue'
+import SignIn from '@/views/SignIn/SignIn.vue'
+import PATH from '@/constants/path'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: PATH.home,
     name: 'Inicio',
     component: Home
   },
   {
-    path: '/text',
+    path: PATH.text,
     name: 'Texto',
     component: Text
+  },
+  {
+    path: PATH.signIn,
+    name: 'Cadastro',
+    component: SignIn
   }
 ]
 
