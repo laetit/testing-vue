@@ -3,7 +3,8 @@
     <h2>Sisteminha da Laet pra testes em VueJs</h2>
     <router-link :to="path.home">Home</router-link> |
     <router-link :to="path.text">Texto</router-link> |
-    <router-link :to="path.signIn">Cadastro</router-link>
+    <router-link :to="path.signIn">Cadastro</router-link>  |
+    <router-link :to="path.refer">Referências</router-link> 
   </div>
 </template>
 

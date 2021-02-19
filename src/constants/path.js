@@ -1,5 +1,6 @@
 export default {
   home: "/",
   text: "/text",
-  signIn: "/sign"
+  signIn: "/sign",
+  refer: "/credit"
 }

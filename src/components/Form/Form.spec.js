@@ -25,4 +25,26 @@ describe("Form", () => {
     fireEvent.change(input, { target: { value: data.age } })
     expect(input.value).toBe(data.age)
   })
+  it("should render false radio buttons", () => {
+    const { getAllByRole } = render(Form)
+    const radios = getAllByRole(/radio/)
+
+    expect(radios[0].checked).toBe(false)
+    expect(radios[1].checked).toBe(false)
+
+    fireEvent.click(radios[1])
+
+    expect(radios[0].checked).toBe(false)
+    expect(radios[1].checked).toBe(true)
+  })
+  it("should render the checkbox", () => {
+    const { getByRole } = render(Form)
+
+    const checkbox = getByRole(/checkbox/)
+    expect(checkbox).toBeInTheDocument
+
+    fireEvent.click(checkbox)
+
+    expect(checkbox.value).toBe("on")
+  })
 })
