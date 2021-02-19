@@ -3,7 +3,7 @@
     <HelloWorld v-if="view" />
     <SecondHome v-else />
     <button v-on:click="setView()">
-      <img class="imgSVG" data-testid="button-home" alt="next" src="@/assets/play.svg" />
+      <img class="imgSVG" arial-label="button-home" alt="next" src="@/assets/play.svg" />
     </button>
   </section>
 </template>

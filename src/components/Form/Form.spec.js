@@ -17,7 +17,7 @@ describe("Form", () => {
     const { getByLabelText } = render(Form)
     const input = getByLabelText(/idade/i)
 
-    expect(input).toBeInTheDocument
+    expect(input).toBeInTheDocument()
 
     fireEvent.change(input, { target: { value: data.name } })
     expect(input.value).not.toBe(data.name)

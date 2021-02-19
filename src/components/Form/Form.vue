@@ -24,7 +24,7 @@
     <button type="submit">Cadastre!</button>
   </form>
 </template>
-
++
 <style scoped>
 form {
   display: inline-grid;
