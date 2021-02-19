@@ -22,5 +22,3 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
-**/tests/unit/**/*.spec.[jt]s?(x), **/__tests__/*.[jt]s?(x)
