@@ -37,14 +37,4 @@ describe("Form", () => {
     expect(radios[0].checked).toBe(false)
     expect(radios[1].checked).toBe(true)
   })
-  it("should render the checkbox", () => {
-    const { getByRole } = render(Form)
-
-    const checkbox = getByRole(/checkbox/)
-    expect(checkbox).toBeInTheDocument
-
-    fireEvent.click(checkbox)
-
-    expect(checkbox.value).toBe("on")
-  })
 })

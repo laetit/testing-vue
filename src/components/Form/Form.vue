@@ -21,10 +21,6 @@
       <input type="radio" name="pet" value="cat" />
       <span>Gato</span>
     </label>
-    <label>
-      <input type="checkbox" name="easy" />
-      <span>Deseja iniciar no fácil?</span>
-    </label>
     <button type="submit">Cadastre!</button>
   </form>
 </template>
