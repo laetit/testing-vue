@@ -5,8 +5,8 @@ afterEach(cleanup);
 
 describe("SecondHome", () => {
   it("snapshot text second home component", () => {
-    const container = render(SecondHome);
+    const { container } = render(SecondHome);
 
-    expect(container.container).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 });
